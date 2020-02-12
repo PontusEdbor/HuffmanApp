@@ -1,16 +1,18 @@
 package com.example.huffmanapp
 
-class AutomatonTree() {
-    private val headNode = AutomatonNode()
+class HuffmanTree() {
+    private val headNode = Node()
 
-    fun translateCode(code: String){
+    fun translateCode(code: String): Char {
         var character = findNode(code).getValue()
         if (character == null){
             println("TROW ERROR code not found")
+            return ' '
         }
+        return character
     }
 
-    private fun findNode(code: String): AutomatonNode{
+    private fun findNode(code: String): Node{
         var memoryNode = headNode
         for (char in code){
             //For every char remaining in code step to the appropriate node
@@ -20,14 +22,14 @@ class AutomatonTree() {
                     if (memoryNode.destZero != null){
                         memoryNode = memoryNode.destZero!!
                     } else{
-                        memoryNode = AutomatonNode()
+                        memoryNode = Node()
                     }
                 }
                 '1' -> {
                     if (memoryNode.destOne != null){
                         memoryNode = memoryNode.destOne!!
                     } else {
-                        memoryNode = AutomatonNode()
+                        memoryNode = Node()
                     }
                 }
                 else -> {
@@ -49,15 +51,15 @@ class AutomatonTree() {
             println("TROW ERROR code already declared")
         }
     }
-    private class AutomatonNode() {
+    private class Node() {
         /*Required functions
                 * Set Destinations
                 * get Destinations
                 * Set value
                 * get Char value*/
         private var value: Char? = null
-        var destZero:AutomatonNode? = null
-        var destOne:AutomatonNode? = null
+        var destZero:Node? = null
+        var destOne:Node? = null
 
         fun getValue():Char?{
             return value
