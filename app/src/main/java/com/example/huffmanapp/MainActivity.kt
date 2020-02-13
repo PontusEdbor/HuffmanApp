@@ -20,9 +20,10 @@ class MainActivity : AppCompatActivity() {
                     "\n" +
                     "Maybe you would enjoy competing in martial arts? If you want to go toe to toe with guys, you'll need skills to be competitive."
             var compressedText = textParser.parseText(testText)
-            //var uncompressedText = textParser.decompressText(compressedText)
+            var uncompressedText = textParser.decompressText(compressedText)
             println(testText.length)
             println(compressedText.length)
+            println(uncompressedText)
         }
     }
 }
