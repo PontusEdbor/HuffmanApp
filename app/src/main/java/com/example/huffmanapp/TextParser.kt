@@ -1,12 +1,15 @@
 package com.example.huffmanapp
 
 import java.util.*
+import kotlin.collections.HashMap
 
 class TextParser (){
-    /*fun countCharacters()
+    private var storedHashtable = Hashtable<Char,Int>()
+    private var huffTree = HuffmanTree()
+    /*fun parseText()
       counts instances of characters in input and returns hashtable
     */
-    fun countCharacters(input: String): Hashtable<Char, Int> {
+    fun parseText(input: String): String {
         var countingTable = Hashtable<Char,Int>()
         for (character in input){
             if (countingTable.containsKey(character)){
@@ -16,6 +19,24 @@ class TextParser (){
                 countingTable.put(character,1)
             }
         }
-        return countingTable
+        storedHashtable = countingTable
+        huffTree.buildTree(countingTable)//Redundant
+        return compressText(input)
+    }
+    /*fun compressText()
+      inputs a string and returns the compressed string
+    */
+    fun compressText(input: String): String {
+        var compressedText = ""
+        for (character in input){
+            compressedText += huffTree.getCode(character)
+        }
+        return compressedText //Will actually have to compress also
+    }
+    /*fun decomressText()
+
+    */
+    fun decompressText(input: String): String {
+        return huffTree.printWholeText(input)
     }
 }

@@ -1,16 +1,46 @@
 package com.example.huffmanapp
 
+import java.util.*
+import kotlin.collections.HashMap
+
 class HuffmanTree() {
     private var headNode:Node? = null
-    private var stepperNode = headNode
+    private var stepperNode = headNode //Dangerous
+    private var translationTable = HashMap<Char, String>()
 
+    /*fun craftTable()
+
+    */
+    private fun craftTable(node: Node, code: String): Unit {
+        var tempValue = node.getValue()
+        if (tempValue != null){
+            translationTable.put(tempValue ,code)
+        }
+        else{
+            if (node.destZero != null){
+                craftTable(node.destZero!!,code + "0")
+            }
+            if (node.destOne != null){
+                craftTable(node.destOne!!,code + "1")
+            }
+        }
+    }
+    /*fun getCode()
+      
+    */
+    fun getCode(input: Char): String {
+        if (translationTable.containsKey(input)){
+            return translationTable.get(input).toString()
+        }
+        return "CHAR NOT FOUND IN TABLE"
+    }
     /*fun buildTree
       takes input of character weights and constructs tree
      */
-    fun buildTree(input: Map<Int, Char>){
+    fun buildTree(input: Hashtable<Char,Int>){
         print("BUILDING TREE")
         println(input)
-        var sortedInput = input.toList().sortedBy { (value, _) -> value }//Convert to list for easy sorting according to weight
+        var sortedInput = input.toList().sortedBy { ( _,value) -> value }//Convert to list for easy sorting according to weight
         var nodeList = mutableListOf<Node>()
 
         nodeList = sortedInput.map { convertToNode(it) }.toMutableList()//List of nodes still in ascending order
@@ -26,30 +56,22 @@ class HuffmanTree() {
         }
         headNode = nodeList[0]
         stepperNode = headNode
-    }
-
-    /*fun printWeights()
-      just helper
-    */
-    fun printWeights(input: MutableList<Node>): Unit {
-        print("PRINTING WEIGHTS")
-        for (entry in input){
-            print(entry.getWeight())
-        }
+        craftTable(headNode!!,"")
     }
 
     /*fun convertToNode()
 
     */
-    fun convertToNode(input: Pair<Int, Char>): Node {
-        var constructedNode = Node(input.first)
-        constructedNode.setValue(input.second)
+    fun convertToNode(input: Pair<Char,Int>): Node {
+        var constructedNode = Node(input.second)
+        constructedNode.setValue(input.first)
         return constructedNode
     }
+
     /*fun printWholeText()
       prints a chunk of text
     */
-    fun printWholeText(input: String): Unit {
+    fun printWholeText(input: String): String {
         var translatedString = ""
         for (character in input){
             var foundChar = takeStep(character)
@@ -57,8 +79,9 @@ class HuffmanTree() {
                 translatedString += foundChar
             }
         }
-        println(translatedString)
+        return translatedString
     }
+
     /* fun takeStep
     Assumes at least one step will be taken
     returns the Char of the node if any exist
