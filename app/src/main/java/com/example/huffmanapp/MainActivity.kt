@@ -14,15 +14,18 @@ class MainActivity : AppCompatActivity() {
         val encodeButton = findViewById<Button>(R.id.button)
         encodeButton.setOnClickListener{
             //Click of the button should compress the text in the text view and send user to a new activity showing the compressed text and compression tree
-            val testText = "I wish I could find the study I found on another sub earlier this week. They were investigating sexual dimorphism in humans, focusing on the hypothesis that human males are evolved to have powerful punches. The interesting bit was that when they measured arm cranking power, the weakest male was stronger than the strongest female. Other measures of upper body strength weren't as lop sided, but provided some evidence of sexual dimorphism.\n" +
+            val testText = "What is Lorem Ipsum?\n" +
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n" +
                     "\n" +
-                    "I take away two things from this. First, men just own us in upper body strength. That testosterone during puberty changes them in ways no weight lifting is ever going to counter act for us. Second: if a woman has to physically defend herself from a healthy man, she's going to need skill to pull it off. She won't brute strength her way to victory. It's a little upsetting to me as well, but it's better to understand the reality at the outset.\n" +
+                    "Why do we use it?\n" +
+                    "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n" +
                     "\n" +
-                    "Maybe you would enjoy competing in martial arts? If you want to go toe to toe with guys, you'll need skills to be competitive."
+                    "\n" +
+                    "Where does it come from?\n" +
+                    "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
             var compressedText = textParser.parseText(testText)
             var uncompressedText = textParser.decompressText(compressedText)
-            println(testText.length)
-            println(compressedText.length)
+            println(compressedText)
             println(uncompressedText)
         }
     }

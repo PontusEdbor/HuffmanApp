@@ -32,68 +32,12 @@ class TextParser (){
             compressedText += huffTree.getCode(character)
         }
 
-        return toAscii(compressedText) //Will actually have to compress also
+        return compressedText //Will actually have to compress also
     }
-    private fun toAscii(input: String): String {
-        var resultString = ""
-        //Divide into chunks of 8
-        val chunkedInput = input.chunked(8)
-        //Decode to int
-        for (chunk in chunkedInput){
-            if (chunk.length <8){
-                chunk.padEnd(8,'0')
-            }
-            //translate to ASCII
-            resultString += decode(chunk).toInt().toChar()
-            //Add to string
-        }
-
-        //return String
-        return resultString
-    }
-    private fun decode(input: String): String{
-        val reversedInput = input.reversed()
-        var iteration = 1
-        var value = 0
-        for (digit in reversedInput){
-            if (digit == '1'){
-                value += iteration
-            }
-            iteration *= 2
-        }
-        return value.toString()
-    }
-    fun encode(input: String):String{
-        var sum = input.toInt()
-        var iterator = 1
-        var value = ""
-        while (iterator*2 < sum){
-            iterator *= 2
-        }
-        while (iterator > 0){
-            if (sum < iterator){
-                iterator /= 2
-                value += "0"
-            }
-            else {
-                sum -= iterator
-                iterator /= 2
-                value += "1"
-            }
-        }
-        return value
-    }
-    fun toDecompressAscii(input: String):String{
-        var returnString = ""
-        for (character in input){
-            returnString += encode(character.toInt().toString()).padStart(8,'0')
-        }
-        return returnString
-    }
-    /*fun decomressText()
+    /*fun decompressText()
 
     */
     fun decompressText(input: String): String {
-        return huffTree.printWholeText(toDecompressAscii(input))
+        return huffTree.printWholeText(input)
     }
 }
