@@ -8,6 +8,7 @@ class HuffmanTree() {
       takes input of character weights and constructs tree
      */
     fun buildTree(input: Map<Int, Char>){
+        print("BUILDING TREE")
         println(input)
         var sortedInput = input.toList().sortedBy { (value, _) -> value }//Convert to list for easy sorting according to weight
         var nodeList = mutableListOf<Node>()
@@ -24,6 +25,7 @@ class HuffmanTree() {
             nodeList.sortBy { it.getWeight() }
         }
         headNode = nodeList[0]
+        stepperNode = headNode
     }
 
     /*fun printWeights()
@@ -43,6 +45,19 @@ class HuffmanTree() {
         var constructedNode = Node(input.first)
         constructedNode.setValue(input.second)
         return constructedNode
+    }
+    /*fun printWholeText()
+      prints a chunk of text
+    */
+    fun printWholeText(input: String): Unit {
+        var translatedString = ""
+        for (character in input){
+            var foundChar = takeStep(character)
+            if (foundChar != null){
+                translatedString += foundChar
+            }
+        }
+        println(translatedString)
     }
     /* fun takeStep
     Assumes at least one step will be taken
