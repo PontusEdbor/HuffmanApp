@@ -31,7 +31,37 @@ class TextParser (){
         for (character in input){
             compressedText += huffTree.getCode(character)
         }
-        return compressedText //Will actually have to compress also
+
+        return toAscii(compressedText) //Will actually have to compress also
+    }
+    private fun toAscii(input: String): String {
+        var resultString = ""
+        //Divide into chunks of 8
+        val chunkedInput = input.chunked(8)
+        //Decode to int
+        for (chunk in chunkedInput){
+            if (chunk.length <8){
+                chunk.padEnd(8,'0')
+            }
+            //translate to ASCII
+            resultString += decode(chunk).toInt().toChar()
+            //Add to string
+        }
+
+        //return String
+        return resultString
+    }
+    private fun decode(input: String): String{
+        val reversedInput = input.reversed()
+        var iteration = 1
+        var value = 0
+        for (digit in reversedInput){
+            if (digit == '1'){
+                value += iteration
+            }
+            iteration *= 2
+        }
+        return value.toString()
     }
     /*fun decomressText()
 
