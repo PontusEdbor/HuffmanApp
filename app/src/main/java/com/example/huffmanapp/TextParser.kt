@@ -72,7 +72,7 @@ class TextParser (){
         var sum = input.toInt()
         var iterator = 1
         var value = ""
-        while (iterator*2 < sum){
+        while (iterator*2 <= sum){
             iterator *= 2
         }
         while (iterator > 0){
